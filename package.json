@@ -1,0 +1,23 @@
+{
+  "name": "har-to-server",
+  "verson": "0.0.1",
+  "description": "Convert HAR files to HTTP server",
+  "module": "index.ts",
+  "type": "module",
+  "scripts": {
+    "start": "bun run src/index.ts",
+    "clear": "rm -rf build",
+    "build": "bun build src/index.ts --compile --outfile build/Release/har-to-server",
+    "build:linux-x64": "bun run build --target=bun-linux-x64-modern",
+    "build:linux-arm64": "bun run build --target=bun-linux-arm64",
+    "build:windows-x64": "bun run build --target=bun-windows-x64-modern",
+    "build:macos-x64": "bun run build --target=bun-darwin-x64",
+    "build:macos-arm64": "bun run build --target=bun-darwin-arm64"
+  },
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  }
+}

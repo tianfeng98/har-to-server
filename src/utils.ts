@@ -7,7 +7,9 @@ export const objToId = (obj: Record<string, any>): string => {
   // 将排序后的键值对转换为字符串
   const str = sortedEntries
     .map(([key, value]) => {
-      if (typeof value === "object") {
+      if (value === undefined || value === null) {
+        return `${key}:${value}`;
+      } else if (typeof value === "object") {
         return `${key}:${objToId(value)}`;
       }
       return `${key}:${value}`;

@@ -22,7 +22,9 @@ export class Router {
     const { url, method } = request;
     const { pathname } = new URL(url);
     const res = this.getRouteList().find(
-      (route) => route.pathname === pathname && route.method === method
+      (route) =>
+        route.pathname === pathname &&
+        route.method.toLowerCase() === method.toLowerCase()
     );
     if (res) {
       return this.getRouteByKey(res.key);

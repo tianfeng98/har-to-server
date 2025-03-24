@@ -53,7 +53,14 @@ const createRoutesFromHar = (router: Router, har: Har) => {
         url,
         () => {
           return new Response(
-            new Blob(text ? [text] : void 0, { type: mimeType })
+            new Blob(text ? [text] : void 0, { type: mimeType }),
+            {
+              headers: {
+                "Access-Control-Allow-Origin": "*",
+                "Access-Control-Allow-Methods":
+                  "GET, POST, PUT, DELETE, OPTIONS",
+              },
+            }
           );
         },
         { key }
@@ -102,14 +109,15 @@ const createServer = (harDataList: Har[], options: ServerOptions = {}) => {
       }
       let body: string | undefined = void 0;
       if (request.method === "POST") {
-        body = await request.json();
+        try {
+          body = await request.json();
+        } catch (e) {}
       }
       const key = createRouteId({
         method: request.method,
         url: request.url,
         body,
       });
-
       let route = router.getRouteByKey(key);
       if (!route) {
         route = router.getRouteByRequest(request);
